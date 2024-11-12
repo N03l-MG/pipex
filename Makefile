@@ -1,7 +1,7 @@
 NAME = pipex
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-SOURCE = pipex.c
+SOURCE = pipex.c child_utils.c error_handling.c
 
 LIB = libft/libft.a
 

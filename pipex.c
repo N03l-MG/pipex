@@ -12,96 +12,74 @@
 
 #include "pipex.h"
 
-static void		create_pipe(int infile, int outfile, int *pipefd);
-static pid_t	child_process_one(int in, int *pipefd, char *cmd);
-static pid_t	child_process_two(int out, int *pipefd, char *cmd);
+static void		parse_args(char **args, t_pipe *pipex);
+static char		*make_cmdstr(char *cmd);
+static void		create_pipe(t_pipe *pipex);
 
 int	main(int argc, char *argv[])
 {
-	int		infile;
-	int		outfile;
-	int		pipefd[2];
-	pid_t	pid1;
-	pid_t	pid2;
+	t_pipe	*pipex;
 
+	pipex = (t_pipe *)malloc(sizeof(t_pipe));
 	if (argc != 5)
-		return (EXIT_FAILURE);
-	infile = open(argv[1], O_RDONLY);
-	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	create_pipe(infile, outfile, pipefd);
-	pid1 = child_process_one(infile, pipefd, argv[2]);
-	pid2 = child_process_two(outfile, pipefd, argv[3]);
-	close(infile);
-	close(outfile);
-	close(pipefd[0]);
-	close(pipefd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+		error_handler(ERROR_ARGS, NULL);
+	parse_args(argv + 1, pipex);
+	pipex->infile = open(argv[1], O_RDONLY);
+	pipex->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	create_pipe(pipex);
+	pipex->pid1 = child_process_one(pipex);
+	pipex->pid2 = child_process_two(pipex);
+	close(pipex->infile);
+	close(pipex->outfile);
+	close(pipex->pipefd[0]);
+	close(pipex->pipefd[1]);
+	waitpid(pipex->pid1, NULL, 0);
+	waitpid(pipex->pid2, NULL, 0);
+	free_pipe(pipex);
 	return (EXIT_SUCCESS);
 }
 
-static void	create_pipe(int infile, int outfile, int *pipefd)
+static void	parse_args(char **args, t_pipe *pipex)
 {
-	if (infile < 0)
-		error_handler(ERROR_INPUT, EXIT_FAILURE);
-
-	if (outfile < 0)
-	{
-		close(infile);
-		error_handler(ERROR_OUTPUT, EXIT_FAILURE);
-	}
-	if (pipe(pipefd) == -1)
-	{
-		close(infile);
-		close(outfile);
-		error_handler(ERROR_PIPE, EXIT_FAILURE);
-	}
+	pipex->cmd1 = args[1];
+	pipex->cmd2 = args[2];
+	pipex->cmd1front = make_cmdstr(args[1]);
+	pipex->cmd2front = make_cmdstr(args[2]);
 }
 
-static pid_t	child_process_one(int in, int *pipefd, char *cmd)
+static char	*make_cmdstr(char *cmd)
 {
-	pid_t	pid2;
+	int		i;
+	char	*cmdstr;
 
-	pid2 = fork();
-	if (pid2 == -1)
+	i = 0;
+	while (cmd[i] != ' ' && cmd[i] != '\n')
+		i++;
+	cmdstr = (char *)malloc(i + 1);
+	i = 0;
+	while (cmd[i] != ' ' && cmd[i] != '\n')
 	{
-		close(in);
-		error_handler(ERROR_FORK, EXIT_FAILURE);
+		cmdstr[i] = cmd[i];
+		i++;
 	}
-	if (pid2 == 0)
-	{
-		dup2(pipefd[0], STDIN_FILENO);
-		dup2(in, STDOUT_FILENO);
-		close(in);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execlp("/bin/sh", "sh", "-c", cmd, (char *) NULL);
-		perror("execlp cmd1");
-		exit(EXIT_FAILURE);
-	}
-	return (pid2);
+	cmdstr[i] = '\0';
+	return (cmdstr);
 }
 
-static pid_t	child_process_two(int out, int *pipefd, char *cmd)
+static void	create_pipe(t_pipe *pipex)
 {
-	pid_t	pid2;
+	if (pipex->infile < 0)
+		error_handler(ERROR_INPUT, pipex);
 
-	pid2 = fork();
-	if (pid2 == -1)
+	if (pipex->outfile < 0)
 	{
-		close(out);
-		error_handler(ERROR_FORK, EXIT_FAILURE);
+		close(pipex->infile);
+		error_handler(ERROR_OUTPUT, pipex);
 	}
-	if (pid2 == 0)
+	if (pipe(pipex->pipefd) == -1)
 	{
-		dup2(pipefd[0], STDIN_FILENO);
-		dup2(out, STDOUT_FILENO);
-		close(out);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execlp("/bin/sh", "sh", "-c", cmd, (char *) NULL);
-		perror("execlp cmd2");
-		exit(EXIT_FAILURE);
+		close(pipex->infile);
+		close(pipex->outfile);
+		error_handler(ERROR_PIPE, pipex);
 	}
-	return (pid2);
 }

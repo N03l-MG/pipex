@@ -16,16 +16,22 @@
 # include <errno.h>
 # include "libft/libft.h"
 
-typedef struct s_pipeparams
+typedef struct s_pipe
 {
-	char	*input;
-	char	*output;
-	pid_t	process1;
-	pid_t	process2;
-}	t_pipeparams;
+	int		infile;
+	int		outfile;
+	int		pipefd[2];
+	pid_t	pid1;
+	pid_t	pid2;
+	char	*cmd1;
+	char	*cmd1front;
+	char	*cmd2;
+	char	*cmd2front;
+}	t_pipe;
 
 typedef enum e_error
 {
+	ERROR_ARGS,
 	ERROR_INPUT,
 	ERROR_OUTPUT,
 	ERROR_PIPE,
@@ -35,6 +41,10 @@ typedef enum e_error
 	ERROR_MEM
 }	t_error;
 
-void	error_handler(t_error error_code, t_pipeparams);
+pid_t	child_process_one(t_pipe *pipex);
+pid_t	child_process_two(t_pipe *pipex);
+void	error_handler(t_error error_code, t_pipe *pipex);
+void	child_error_handler(t_error error_code, t_pipe *pipex);
+void	free_pipe(t_pipe *pipex);
 
 #endif
