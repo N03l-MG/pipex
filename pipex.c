@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:50:01 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/12 17:11:39 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 10:43:15 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int argc, char *argv[])
 
 static void	parse_args(char **args, t_pipe *pipex)
 {
+	pipex->infilename = args[0];
+	pipex->outfilename = args[3];
 	pipex->cmd1 = args[1];
 	pipex->cmd2 = args[2];
 	pipex->cmd1front = make_cmdstr(args[1]);
@@ -70,7 +72,6 @@ static void	create_pipe(t_pipe *pipex)
 {
 	if (pipex->infile < 0)
 		error_handler(ERROR_INPUT, pipex);
-
 	if (pipex->outfile < 0)
 	{
 		close(pipex->infile);

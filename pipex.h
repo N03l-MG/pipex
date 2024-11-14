@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:53:25 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/12 17:11:34 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 10:41:47 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 typedef struct s_pipe
 {
 	int		infile;
+	char	*infilename;
 	int		outfile;
+	char	*outfilename;
 	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;

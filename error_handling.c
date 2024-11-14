@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:55:49 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/12 17:11:35 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 10:44:36 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	error_handler(t_error error_code, t_pipe *pipex)
 	if (error_code == ERROR_ARGS)
 		ft_printf("Invalid arguments.\n");
 	else if (error_code == ERROR_INPUT)
-		ft_printf("zsh: no such file or directory: %s\n", pipex->infile);
+		ft_printf("zsh: no such file or directory: %s\n", pipex->infilename);
 	else if (error_code == ERROR_OUTPUT)
-		ft_printf("zsh: no such file or directory: %s\n", pipex->outfile);
+		ft_printf("zsh: no such file or directory: %s\n", pipex->outfilename);
 	else if (error_code == ERROR_PIPE)
 		ft_printf("Pipe error.\n");
 	else if (error_code == ERROR_FORK)
