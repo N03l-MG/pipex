@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:44:34 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/17 18:12:47 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:20:37 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handle_string(char *str, int *retval)
 {
 	if (!str)
 	{
-		if (write(1, "(null)", 6) == -1)
+		if (write(2, "(null)", 6) == -1)
 		{
 			*retval = -1;
 			return ;
@@ -26,7 +26,7 @@ void	handle_string(char *str, int *retval)
 	}
 	while (*str)
 	{
-		if (write(1, str, 1) == -1)
+		if (write(2, str, 1) == -1)
 		{
 			*retval = -1;
 			return ;

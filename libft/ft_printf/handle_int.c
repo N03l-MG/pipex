@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:44:28 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/17 18:36:26 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:20:20 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	write_and_check(char *s, int *retval, int length)
 {
-	if (write(1, s, length) == -1)
+	if (write(2, s, length) == -1)
 	{
 		*retval = -1;
 		return ;

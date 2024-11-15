@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:50:01 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/13 10:43:15 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:28:40 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static char	*make_cmdstr(char *cmd)
 	while (cmd[i] != ' ' && cmd[i] != '\n')
 		i++;
 	cmdstr = (char *)malloc(i + 1);
+	if (!cmdstr)
+		error_handler(ERROR_MEM, NULL);
 	i = 0;
 	while (cmd[i] != ' ' && cmd[i] != '\n')
 	{

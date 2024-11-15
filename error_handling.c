@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:55:49 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/13 10:44:36 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:14:21 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	error_handler(t_error error_code, t_pipe *pipex)
 void	child_error_handler(t_error error_code, t_pipe *pipex)
 {
 	if (error_code == ERROR_CMD1)
-		ft_printf("zsh: command not found: %s\n", pipex->cmd1front);
+		ft_printf("sh: command not found: %s\n", pipex->cmd1front);
 	else if (error_code == ERROR_CMD2)
-		ft_printf("zsh: command not found: %s\n", pipex->cmd2front);
+		ft_printf("sh: command not found: %s\n", pipex->cmd2front);
 	exit(EXIT_FAILURE);
 }

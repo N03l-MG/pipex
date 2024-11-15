@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:44:15 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/17 18:06:57 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:19:51 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_character(int c, int *retval)
 {
-	if (write(1, &c, 1) == -1)
+	if (write(2, &c, 1) == -1)
 	{
 		*retval = -1;
 		return ;

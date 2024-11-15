@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:01:32 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/17 18:02:29 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/15 16:18:27 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	write_and_check(const char c, int *retval)
 {
-	if (write(1, &c, 1) == -1)
+	if (write(2, &c, 1) == -1)
 	{
 		*retval = -1;
 		return ;
@@ -56,7 +56,7 @@ static int	*format_parse(const char *str, va_list args, int *retval)
 		}
 		else
 		{
-			if (write(1, str, 1) == -1)
+			if (write(2, str, 1) == -1)
 			{
 				*retval = -1;
 				return (retval);
