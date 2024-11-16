@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:48:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/13 11:36:41 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/16 15:10:08 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ typedef struct s_list
 
 // Standard libft Functions
 int		ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s1);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize); //had restrict
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_toupper(int c);

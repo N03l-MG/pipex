@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:53:25 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/13 10:41:47 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/16 15:30:10 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <errno.h>
 # include "libft/libft.h"
 
+// Pipe struct with all relevant variables
 typedef struct s_pipe
 {
 	int		infile;
@@ -31,6 +32,7 @@ typedef struct s_pipe
 	char	*cmd2front;
 }	t_pipe;
 
+// Error Types
 typedef enum e_error
 {
 	ERROR_ARGS,
@@ -43,8 +45,14 @@ typedef enum e_error
 	ERROR_MEM
 }	t_error;
 
+// Parsing function for the environment path
+char	*find_executable_path(char *cmd);
+
+// Both child process functions
 pid_t	child_process_one(t_pipe *pipex);
 pid_t	child_process_two(t_pipe *pipex);
+
+// Error handling functions
 void	error_handler(t_error error_code, t_pipe *pipex);
 void	child_error_handler(t_error error_code, t_pipe *pipex);
 void	free_pipe(t_pipe *pipex);
