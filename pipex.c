@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:50:01 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/16 15:30:42 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/17 17:43:27 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ static void		close_all(t_pipe *pipex);
 int	main(int argc, char *argv[], char **envp)
 {
 	t_pipe	*pipex;
-	int		status1;
-	int		status2;
+	int		status;
 
 	pipex = (t_pipe *)malloc(sizeof(t_pipe));
-	status1 = 0;
-	status2 = 0;
+	status = 0;
 	if (argc != 5)
 		error_handler(ERROR_ARGS, NULL);
 	parse_args(argv + 1, pipex);
@@ -34,10 +32,12 @@ int	main(int argc, char *argv[], char **envp)
 	pipex->pid1 = child_process_one(pipex, envp);
 	pipex->pid2 = child_process_two(pipex, envp);
 	close_all(pipex);
-	waitpid(pipex->pid1, &status1, 0);
-	waitpid(pipex->pid2, &status2, 0);
+	waitpid(pipex->pid1, NULL, 0);
+	waitpid(pipex->pid2, &status, 0);
 	free_pipe(pipex);
-	return (status2 >> 8);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (EXIT_FAILURE);
 }
 
 static void	parse_args(char **args, t_pipe *pipex)

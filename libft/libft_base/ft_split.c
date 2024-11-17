@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:01:55 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/16 14:23:47 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/10/28 11:31:31 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,3 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (populate_array(s, c, split_strings));
 }
-
-// int main() 
-// {
-// 	char **result = ft_split("                  olol", ' ');
-
-// 	if (result == NULL) {
-// 		printf("Split failed\n");
-// 		return 1;
-// 	}
-
-// 	for (int i = 0; result[i] != NULL; i++) {
-// 		printf("%s\n", result[i]);
-// 		free(result[i]);
-// 	}
-
-// 	free(result);
-
-// 	return 0;
-// }
