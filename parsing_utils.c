@@ -12,57 +12,69 @@
 
 #include "pipex.h"
 
-static void	free_array(char **array);
-
-char	*find_executable_path(char *cmd)
+static char	*get_env_path(char **envp)
 {
-	char	*path_env;
+	int		i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			return (envp[i] + 5);
+		i++;
+	}
+	ft_printf("Error: PATH environment variable not found.\n");
+	exit(EXIT_FAILURE);
+}
+
+static void	build_path(char *full_path, const char *path, const char *cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (path[i] != '\0')
+	{
+		full_path[i] = path[i];
+		i++;
+	}
+	full_path[i] = '/';
+	i++;
+	while (cmd[j] != '\0')
+	{
+		full_path[i] = cmd[j];
+		i++;
+		j++;
+	}
+	full_path[i] = '\0';
+}
+
+char	*find_executable_path(char **cmd, char **envp)
+{
+	char	*path_var;
 	char	**paths;
 	char	*full_path;
 	int		i;
 
-	path_env = getenv("PATH");
-	if (!path_env)
-		error_handler(ERROR_MEM, NULL);
-	paths = ft_split(path_env, ':');
+	i = 0;
+	path_var = get_env_path(envp);
+	paths = ft_split(path_var, ':');
 	if (!paths)
 		error_handler(ERROR_MEM, NULL);
-	i = 0;
 	while (paths[i])
 	{
-		full_path = malloc(ft_strlen(paths[i]) + ft_strlen(cmd) + 2);
+		full_path = malloc(ft_strlen(paths[i]) + ft_strlen(cmd[0]) + 2);
 		if (!full_path)
-		{
-			free_array(paths);
 			error_handler(ERROR_MEM, NULL);
-		}
-		ft_strlcpy(full_path, paths[i], ft_strlen(full_path));
-		ft_strlcat(full_path, "/", ft_strlen(full_path));
-		ft_strlcat(full_path, cmd, ft_strlen(full_path));
+		build_path(full_path, paths[i++], cmd[0]);
 		if (access(full_path, X_OK | F_OK) == 0)
 		{
 			free_array(paths);
 			return (full_path);
 		}
 		free(full_path);
-		i++;
 	}
-	free(paths);
+	free_array(paths);
 	return (NULL);
-}
-
-static void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (array)
-	{
-		while (array[i])
-		{
-			free(array[i]);
-			i++;
-		}
-		free(array);
-	}
 }
