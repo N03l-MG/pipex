@@ -45,6 +45,7 @@ void	error_success(t_error error_code, t_pipe *pipex)
 		ft_printf("pipex: %s: No such file or directory\n", pipex->infilename);
 	else if (error_code == ERROR_OUTPUT)
 		ft_printf("pipex: %s: No such file or directory\n", pipex->outfilename);
+	free_pipe(pipex);
 	exit(EXIT_SUCCESS);
 }
 

@@ -21,10 +21,10 @@ int	main(int argc, char *argv[], char **envp)
 	t_pipe	*pipex;
 	int		status;
 
-	pipex = (t_pipe *)malloc(sizeof(t_pipe));
 	status = 0;
 	if (argc != 5)
 		error_handler(ERROR_ARGS, NULL);
+	pipex = (t_pipe *)malloc(sizeof(t_pipe));
 	parse_args(argv + 1, pipex);
 	pipex->infile = open(argv[1], O_RDONLY);
 	pipex->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
