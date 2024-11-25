@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:05:51 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/17 14:03:08 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:12:32 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*get_env_path(char **envp)
 			return (envp[i] + 5);
 		i++;
 	}
-	ft_printf("Error: PATH environment variable not found.\n");
+	ft_fprintf(2, "Error: PATH environment variable not found.\n");
 	exit(EXIT_FAILURE);
 }
 

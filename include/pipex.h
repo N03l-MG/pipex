@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:53:25 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/17 14:03:06 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:11:41 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PIPEX_H
 # include <sys/wait.h>
 # include <errno.h>
-# include "libft/libft.h"
+# include "../libft/include/libft.h"
 
 // Pipe struct with all relevant variables
 typedef struct s_pipe

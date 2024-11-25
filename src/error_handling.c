@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:55:49 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/17 17:07:59 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:13:39 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	free_pipe(t_pipe *pipex)
 void	error_success(t_error error_code, t_pipe *pipex)
 {
 	if (error_code == ERROR_INPUT)
-		ft_printf("pipex: %s: No such file or directory\n", pipex->infilename);
+		ft_fprintf(2, "sh: %s: No such file or directory\n", pipex->infilename);
 	else if (error_code == ERROR_OUTPUT)
-		ft_printf("pipex: %s: No such file or directory\n", pipex->outfilename);
+		ft_fprintf(2, "sh: %s: No such file or directory\n", pipex->outfilename);
 	free_pipe(pipex);
 	exit(EXIT_SUCCESS);
 }
@@ -52,13 +52,13 @@ void	error_success(t_error error_code, t_pipe *pipex)
 void	error_handler(t_error error_code, t_pipe *pipex)
 {
 	if (error_code == ERROR_ARGS)
-		ft_printf("Invalid arguments.\n");
+		ft_fprintf(2, "Invalid arguments.\n");
 	else if (error_code == ERROR_PIPE)
-		ft_printf("Pipe error.\n");
+		ft_fprintf(2, "Pipe error.\n");
 	else if (error_code == ERROR_FORK)
-		ft_printf("Fork error.\n");
+		ft_fprintf(2, "Fork error.\n");
 	else if (error_code == ERROR_MEM)
-		ft_printf("Memory allocation error.\n");
+		ft_fprintf(2, "Memory allocation error.\n");
 	free_pipe(pipex);
 	exit(EXIT_FAILURE);
 }
@@ -66,8 +66,8 @@ void	error_handler(t_error error_code, t_pipe *pipex)
 void	child_error_handler(t_error error_code, t_pipe *pipex)
 {
 	if (error_code == ERROR_CMD1)
-		ft_printf("pipex: %s: command not found\n", pipex->cmd1[0]);
+		ft_fprintf(2, "sh: %s: command not found\n", pipex->cmd1[0]);
 	else if (error_code == ERROR_CMD2)
-		ft_printf("pipex: %s: command not found\n", pipex->cmd2[0]);
+		ft_fprintf(2, "sh: %s: command not found\n", pipex->cmd2[0]);
 	exit(127);
 }
