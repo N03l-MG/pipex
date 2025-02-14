@@ -1,4 +1,4 @@
-###pipex (42 project)
+### pipex (42 project)
 This is a very basic exercise to get used to pipes and processes in C.
 
 Pipex simply mimics the behavior of this exact bash line:
