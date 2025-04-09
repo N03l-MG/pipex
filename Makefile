@@ -3,7 +3,7 @@
 #                                    MAKEFILE                                  #
 # Project:     pipex                                                           #
 # Created:     12/11/2024                                                      #
-# Author:      Noel Monzon (nmonzon)                                           #
+# Author:      kixk                                                            #
 #                                                                              #
 ################################################################################
 
